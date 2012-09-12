@@ -3,6 +3,7 @@ define sudo::directive (
   $content="",
   $source=""
 ) {
+  require sudo::params
 
   # sudo skipping file names that contain a "."
   $dname = regsubst($name, '\.', '-', 'G')
@@ -21,7 +22,7 @@ define sudo::directive (
         ""      => undef,
         default => $source,
       },
-      require => Package["sudo"],
+      require => $sudo_package,
     }
   
   } else {
@@ -29,7 +30,7 @@ define sudo::directive (
     file {"/etc/sudoers.d/${dname}":
       ensure  => $ensure,
       owner   => root,
-      group   => root,
+      group   => $sudoers_group,
       mode    => 0440,
       content => $content ? {
         ""      => undef,   
@@ -40,7 +41,7 @@ define sudo::directive (
         default => $source,
       },
       notify  => Exec["sudo-syntax-check for file $dname"],
-      require => Package["sudo"],
+      require => $sudo_package,
     }
   
   }

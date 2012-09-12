@@ -18,7 +18,7 @@ If you have a class of users named `users::virtual` and a virtual Group named `a
 ::
 
   class sudo {
-    includo sudo::base
+    include sudo::base
     include users::virtual
 
     realize(Group['admin'])

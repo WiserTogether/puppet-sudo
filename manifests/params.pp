@@ -1,4 +1,16 @@
 class sudo::params {
+  if $::operatingsystem == 'darwin' {
+     $sudoers_group = 'wheel'
+     $sudo_admin_group = true
+  } else {
+     $sudoers_group = 'root'
+  }
+
+  case $::fqdn {
+    /vagrantup.com/: {
+        $sudo_nopasswd_admin_group = true
+    }
+  }
 
   $release_version = $operatingsystem ? {
     RedHat => $lsbdistcodename ? {
@@ -16,6 +28,7 @@ class sudo::params {
       5 => '1.7.2',
       6 => '1.7.2p2',
     },
+    default => $::sudoversion,
   }
 
   if !$sudo_version { 
@@ -24,6 +37,11 @@ class sudo::params {
   } else {
     $majversion = $sudo_version
     $version = $sudo_version
+  }
+
+  $sudo_package = $::operatingsystem ? {
+    darwin => [],
+    default => [Package['sudo']]
   }
 
 }

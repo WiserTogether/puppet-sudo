@@ -1,12 +1,77 @@
 # file managed by puppet
-Defaults    env_keep=SSH_AUTH_SOCK
-Defaults    !authenticate
-Defaults    env_reset
+
+#
+# Disable "ssh hostname sudo <cmd>", because it will show the password in clear.
+#         You have to run "ssh -t hostname sudo <cmd>".
+#
+# Defaults    requiretty
+Defaults !authenticate  # from osx 10.8
+
+
+#
+# Refuse to run if unable to disable echo on the tty. This setting should also be
+# changed in order to be able to use sudo without a tty. See requiretty above.
+#
+Defaults !visiblepw
+
+Defaults env_reset
+Defaults env_keep = "BLOCKSIZE"
+Defaults env_keep += "__CF_USER_TEXT_ENCODING"
+Defaults env_keep += "CHARSET"
+Defaults env_keep += "COLORFGBG"
+Defaults env_keep += "COLORS"
+Defaults env_keep += "COLORTERM"
+Defaults env_keep += "COLUMNS"
+Defaults env_keep += "DISPLAY"
+Defaults env_keep += "EDITOR"
+Defaults env_keep += "HISTSIZE"
+Defaults env_keep += "HOME"
+Defaults env_keep += "HOSTNAME"
+Defaults env_keep += "INPUTRC"
+Defaults env_keep += "KDEDIR"
+Defaults env_keep += "LANG"
+Defaults env_keep += "LANGUAGE"
+Defaults env_keep += "LC_ADDRESS"
+Defaults env_keep += "LC_ALL"
+Defaults env_keep += "LC_COLLATE"
+Defaults env_keep += "LC_CTYPE"
+Defaults env_keep += "LC_IDENTIFICATION"
+Defaults env_keep += "LC_MEASUREMENT"
+Defaults env_keep += "LC_MESSAGES"
+Defaults env_keep += "LC_MONETARY"
+Defaults env_keep += "LC_NAME"
+Defaults env_keep += "LC_NUMERIC"
+Defaults env_keep += "LC_PAPER"
+Defaults env_keep += "LC_TELEPHONE"
+Defaults env_keep += "LC_TIME"
+Defaults env_keep += "LINES"
+Defaults env_keep += "LINGUAS"
+Defaults env_keep += "LSCOLORS"
+Defaults env_keep += "LS_COLORS"
+Defaults env_keep += "MAIL"
+Defaults env_keep += "PS1"
+Defaults env_keep += "PS2"
+Defaults env_keep += "QTDIR"
+Defaults env_keep += "SSH_AUTH_SOCK"
+Defaults env_keep += "TZ"
+Defaults env_keep += "USERNAME"
+Defaults env_keep += "VISUAL"
+Defaults env_keep += "XAUTHORITY"
+Defaults env_keep += "XAUTHORIZATION"
+Defaults env_keep += "_XKB_CHARSET"
+
+
 <% if has_variable?("sudo_mailto") -%>
 Defaults    mailto=<%= sudo_mailto %>
 <% end -%>
 Defaults    always_set_home
 root  ALL=(ALL) ALL
+<% if has_variable?("sudo_admin_group") -%>
+%admin ALL=(ALL) ALL
+<% end -%>
+<% if has_variable?("sudo_nopasswd_admin_group") -%>
+%admin ALL=NOPASSWD: ALL
+<% end -%>
 
 # This directive only works with version >= 1.7.2!
 #includedir /etc/sudoers.d

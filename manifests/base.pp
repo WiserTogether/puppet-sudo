@@ -1,12 +1,12 @@
-class sudo::base {
-  package {"sudo":
+class sudo::base inherits sudo::params {
+  package {$sudo_package:
     ensure => "present",
   }
 
   file {"/etc/sudoers":
     ensure => present,
     owner  => root,
-    group  => root,
+    group  => $sudoers_group,
     mode   => 440,
   }
 
@@ -28,7 +28,7 @@ class sudo::base {
     file {"/etc/sudoers.d":
       ensure  => directory,
       owner   => root,
-      group   => root,
+      group   => $sudoers_group,
       mode    => 755,
       purge   => true,
       recurse => true,
