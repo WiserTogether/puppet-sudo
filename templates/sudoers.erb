@@ -4,8 +4,12 @@
 # Disable "ssh hostname sudo <cmd>", because it will show the password in clear.
 #         You have to run "ssh -t hostname sudo <cmd>".
 #
-# Defaults    requiretty
-Defaults !authenticate  # from osx 10.8
+Defaults requiretty
+
+#
+# Require users to authenticate
+#
+Defaults authenticate
 
 
 #

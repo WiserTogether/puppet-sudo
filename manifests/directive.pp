@@ -16,7 +16,7 @@ define sudo::directive (
       file => "/etc/sudoers",
       content => $content ? {
         ""      => undef,
-        default => $content,
+        default => "$content\n",
       },
       source => $source ? {
         ""      => undef,
@@ -30,7 +30,6 @@ define sudo::directive (
     file {"/etc/sudoers.d/${dname}":
       ensure  => $ensure,
       owner   => root,
-      group   => $sudoers_group,
       mode    => 0440,
       content => $content ? {
         ""      => undef,   

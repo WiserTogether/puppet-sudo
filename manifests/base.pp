@@ -8,7 +8,6 @@ class sudo::base inherits sudo::params {
   file {"/etc/sudoers":
     ensure => present,
     owner  => root,
-    group  => $sudoers_group,
     mode   => 440,
   }
 
@@ -30,7 +29,6 @@ class sudo::base inherits sudo::params {
     file {"/etc/sudoers.d":
       ensure  => directory,
       owner   => root,
-      group   => $sudoers_group,
       mode    => 755,
       purge   => true,
       recurse => true,

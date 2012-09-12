@@ -1,9 +1,6 @@
 class sudo::params {
   if $::operatingsystem == 'darwin' {
-     $sudoers_group = 'wheel'
      $sudo_admin_group = true
-  } else {
-     $sudoers_group = 'root'
   }
 
   case $::fqdn {
