@@ -74,6 +74,7 @@ root  ALL=(ALL) ALL
 %admin ALL=(ALL) ALL
 <% end -%>
 <% if has_variable?("sudo_nopasswd_admin_group") -%>
+Defaults:%admin !requiretty
 %admin ALL=NOPASSWD: ALL
 <% end -%>
 
