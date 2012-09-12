@@ -44,4 +44,6 @@ class sudo::params {
     default => Package['sudo'],
   }
 
+  $sudo_use_single_file = versioncmp($sudoversion,'1.7.2') < 0
+
 }

@@ -12,7 +12,7 @@ class sudo::base inherits sudo::params {
     mode   => 440,
   }
 
-  if versioncmp($sudoversion,'1.7.2') < 0 {
+  if $sudo_use_single_file {
     #
     # Backward compatibility for version less than 1.7.2
     # 

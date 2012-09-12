@@ -73,7 +73,7 @@ root  ALL=(ALL) ALL
 %admin ALL=NOPASSWD: ALL
 <% end -%>
 
-# This directive only works with version >= 1.7.2!
+<% if !sudo_use_single_file -%>
 #includedir /etc/sudoers.d
-##
-#
+<% end -%>
+
