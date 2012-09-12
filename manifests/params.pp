@@ -40,8 +40,8 @@ class sudo::params {
   }
 
   $sudo_package = $::operatingsystem ? {
-    darwin => [],
-    default => [Package['sudo']]
+    darwin =>  undef,
+    default => Package['sudo'],
   }
 
 }

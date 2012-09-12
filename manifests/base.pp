@@ -1,6 +1,8 @@
 class sudo::base inherits sudo::params {
-  package {$sudo_package:
-    ensure => "present",
+  if $::operatingsystem != 'darwin' {
+    package { 'sudo': 
+      ensure => "present",
+    }
   }
 
   file {"/etc/sudoers":
