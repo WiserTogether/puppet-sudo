@@ -4,7 +4,9 @@
 # Disable "ssh hostname sudo <cmd>", because it will show the password in clear.
 #         You have to run "ssh -t hostname sudo <cmd>".
 #
+<% if requiretty -%>
 Defaults requiretty
+<% end -%>
 
 #
 # Require users to authenticate

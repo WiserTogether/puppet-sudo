@@ -1,7 +1,11 @@
 class sudo::params {
   if $::operatingsystem == 'darwin' {
      $sudo_admin_group = true
+     $requiretty = false
+  } else {
+     $requiretty = true
   }
+
 
   case $::fqdn {
     /vagrantup.com/: {
